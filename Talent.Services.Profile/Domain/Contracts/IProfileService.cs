@@ -28,6 +28,12 @@ namespace Talent.Services.Profile.Domain.Contracts
 
         Task<bool> UpdateEmployerProfile(EmployerProfileViewModel profile, String updaterId, string role);
         Task<bool> UpdateEmployerPhoto(string employerId, IFormFile file);
+        Task<bool> DeleteLanguage(AddLanguageViewModel deleteLanguage, string updaterId);
+        Task<bool> DeleteEducation(AddEducationViewModel deleteEducation, string updaterId);
+        Task<bool> DeleteCertificate(AddCertificationViewModel deleteCertificate, string updaterId);
+        Task<bool> DeleteExperience(ExperienceViewModel deleteExperience, string updaterId);
+
+        Task<bool> DeleteSkill(AddSkillViewModel deleteSkill, string updaterId);
 
         Task<bool> AddEmployerVideo(string employerId, IFormFile file);
         Task<bool> AddTalentSuggestions(AddTalentSuggestionList selectedTalents);

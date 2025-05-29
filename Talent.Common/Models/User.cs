@@ -24,6 +24,7 @@ namespace Talent.Common.Models
         public string MobilePhone { get; set; }
         public bool IsMobilePhoneVerified { get; set; }
 
+        public ContactDetail PrimaryContact { get; set; }
         public Address Address { get; set; }
         public string Nationality { get; set; }
         public string VisaStatus { get; set; }
@@ -58,6 +59,7 @@ namespace Talent.Common.Models
             Education = new List<UserEducation>();
             Certifications = new List<UserCertification>();
             Experience = new List<UserExperience>();
+            PrimaryContact = new ContactDetail();
             Address = new Address();
             Videos = new List<TalentVideo>();
             LinkedAccounts = new LinkedAccounts();
@@ -73,6 +75,24 @@ namespace Talent.Common.Models
         public string City { get; set; }
         public string Country { get; set; }
 
+        public class PrimaryContact
+        {
+            public string Id { get; set; }
+            public string FirstName { get; set; }
+
+            public string LastName { get; set; }
+
+            public string Email { get; set; }
+            public string Phone { get; set; }
+            public PrimaryContact()
+            {
+                Id = "";
+                FirstName = "";
+                LastName = "";
+                Email = "";
+                Phone = "";
+            }
+        }
         public Address()
         {
             Number = "";
