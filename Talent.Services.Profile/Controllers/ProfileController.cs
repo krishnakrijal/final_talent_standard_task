@@ -161,8 +161,14 @@ namespace Talent.Services.Profile.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
         public async Task<ActionResult> DeleteLanguage([FromBody] AddLanguageViewModel language)
         {
-            //Your code here;
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                if (await _profileService.DeleteLanguage(language, _userAppContext.CurrentUserId))
+                {
+                    return Json(new { Success = true });
+                }
+            }
+            return Json(new { Success = false });
         }
 
         [HttpGet("getSkill")]
@@ -193,8 +199,14 @@ namespace Talent.Services.Profile.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
         public async Task<IActionResult> DeleteSkill([FromBody]AddSkillViewModel skill)
         {
-            //Your code here;
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                if (await _profileService.DeleteSkill(skill, _userAppContext.CurrentUserId))
+                {
+                    return Json(new { Success = true });
+                }
+            }
+            return Json(new { Success = false });
         }
 
         [HttpGet("getCertification")]
@@ -225,8 +237,14 @@ namespace Talent.Services.Profile.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
         public async Task<IActionResult> DeleteCertification([FromBody] AddCertificationViewModel certificate)
         {
-            //Your code here;
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                if (await _profileService.DeleteCertificate(certificate, _userAppContext.CurrentUserId))
+                {
+                    return Json(new { Success = true });
+                }
+            }
+            return Json(new { Success = false });
         }
 
         [HttpGet("getProfileImage")]
@@ -242,8 +260,16 @@ namespace Talent.Services.Profile.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
         public async Task<ActionResult> UpdateProfilePhoto()
         {
-            //Your code here;
-            throw new NotImplementedException();
+            IFormFile file = Request.Form.Files[0];
+
+            if (ModelState.IsValid)
+            {
+                if (await _profileService.UpdateTalentPhoto(_userAppContext.CurrentUserId, file))
+                {
+                    return Json(new { Success = true });
+                }
+            }
+            return Json(new { Success = false });
         }
 
         [HttpPost("updateTalentCV")]
@@ -309,11 +335,31 @@ namespace Talent.Services.Profile.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
         public async Task<IActionResult> DeleteEducation([FromBody] AddEducationViewModel model)
         {
-            //Your code here;
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                if (await _profileService.DeleteEducation(model, _userAppContext.CurrentUserId))
+                {
+                    return Json(new { Success = true });
+                }
+            }
+            return Json(new { Success = false });
         }
 
-     
+        [HttpPost("deleteExperience")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
+        public async Task<IActionResult> DeleteExperience([FromBody] ExperienceViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (await _profileService.DeleteExperience(model, _userAppContext.CurrentUserId))
+                {
+                    return Json(new { Success = true });
+                }
+            }
+            return Json(new { Success = false });
+        }
+
+
         #endregion
 
         #region EmployerOrRecruiter

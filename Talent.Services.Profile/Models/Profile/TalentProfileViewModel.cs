@@ -19,7 +19,7 @@ namespace Talent.Services.Profile.Models.Profile
         public string Phone { get; set; }
         public string MobilePhone { get; set; }
         public bool IsMobilePhoneVerified { get; set; }
-
+        public ContactDetail PrimaryContact { get; set; }
         public Address Address { get; set; }
         public string Nationality { get; set; }
         public string VisaStatus { get; set; }

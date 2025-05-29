@@ -2,7 +2,9 @@
 import Cookies from 'js-cookie';
 import { ChildSingleInput } from '../Form/SingleInput.jsx';
 import { Location } from '../Employer/CreateJob/Location.jsx';
-export class IndividualDetailSection extends Component {
+
+const requiredKeysIndividual = ['firstName', 'lastName', 'email', 'phone'];
+export class IndividualDetailSection extends React.PureComponent {
     constructor(props) {
         super(props)
 
@@ -51,10 +53,12 @@ export class IndividualDetailSection extends Component {
     }
 
     saveContact() {
-        console.log(this.props.componentId)
-        console.log(this.state.newContact)
+        const valid = this.props.validateFunc(this.state.newContact, requiredKeysIndividual);
+        if (!valid) {
+            return;
+        }
         const data = Object.assign({}, this.state.newContact)
-        this.props.controlFunc(this.props.componentId, data)
+        this.props.controlFunc(data)
         this.closeEdit()
     }
 
@@ -109,8 +113,8 @@ export class IndividualDetailSection extends Component {
                     errorMessage="Please enter a valid phone number"
                 />
 
-                <button type="button" className="ui teal button" onClick={this.saveContact}>Save</button>
-                <button type="button" className="ui button" onClick={this.closeEdit}>Cancel</button>
+                <button type="button" className="ui black button" onClick={this.saveContact}>Save</button>
+                <button type="button" className="ui grey button" onClick={this.closeEdit}>Cancel</button>
             </div>
         )
     }
@@ -129,7 +133,7 @@ export class IndividualDetailSection extends Component {
                         <p>Email: {email}</p>
                         <p>Phone: {phone}</p>
                     </React.Fragment>
-                    <button type="button" className="ui right floated teal button" onClick={this.openEdit}>Edit</button>
+                    <button type="button" className="ui right floated black button" onClick={this.openEdit}>Edit</button>
                 </div>
             </div>
         )
@@ -248,7 +252,7 @@ export class CompanyDetailSection extends Component {
         let companyName = this.props.details ? this.props.details.name : ""
         let email = this.props.details ? this.props.details.email : ""
         let phone = this.props.details ? this.props.details.phone : ""
-        let location = {city:'',country:''}
+        let location = { city: '', country: '' }
         if (this.props.details && this.props.details.location) {
             location = this.props.details.location
         }
